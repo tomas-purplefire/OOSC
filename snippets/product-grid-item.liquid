@@ -213,25 +213,25 @@
         </div>
 
       {% comment %} {% assign current_variant = product.selected_or_first_available_variant %}
-         {%- render 'product-template-variables' - %}
-        {%- render 'product-form'
-        , form_id: "product-form-{{product.id}}"
-        , product: product
-      , current_variant: current_variant -%} {% endcomment %}
+                 {%- render 'product-template-variables' - %}
+                {%- render 'product-form'
+                , form_id: "product-form-{{product.id}}"
+                , product: product
+            , current_variant: current_variant -%} {% endcomment %}
       {% comment %} {%- assign current_variant = product.selected_or_first_available_variant -%}
-                <button
-                  type="button"
-                  {% unless current_variant.available %}
-                  disabled="disabled"
-                  {% endunless %}
-                  onclick="event.preventDefault(); add_to_cart_grid({{current_variant.id}}, 1);"
-                  class="btn btn--full atc-variant-pf">
-                  {% if current_variant.available %}
-                    {{ 'products.product.add_to_cart' | t }}
-                  {% else %}
-                    {{ 'products.product.sold_out' | t }}
-                  {% endif %}
-              </button> {% endcomment %}
+                        <button
+                          type="button"
+                          {% unless current_variant.available %}
+                          disabled="disabled"
+                          {% endunless %}
+                          onclick="event.preventDefault(); add_to_cart_grid({{current_variant.id}}, 1);"
+                          class="btn btn--full atc-variant-pf">
+                          {% if current_variant.available %}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {% else %}
+                            {{ 'products.product.sold_out' | t }}
+                          {% endif %}
+                    </button> {% endcomment %}
 
       </div>
     </a>
@@ -351,7 +351,7 @@
     transition-duration: 0.3s !important;
   }
   button.atc-variant-pf:active {
-    background-color: #9C0C9A;
+    background-color: #9C0C9A !important;
   }
   button.atc-variant-pf:hover {
     background-color: #D120CE !important;
