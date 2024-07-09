@@ -47,6 +47,8 @@
       endif
     endfor
   endif
+
+  assign current_variant = product.selected_or_first_available_variant
 -%}
 
 <div
@@ -208,30 +210,28 @@
               {%- endcapture -%}
               {{ product_variant.unit_price | money }}/{{ unit_price_base_unit }}</div>
           {%- endif -%}
-      </div>
+        </div>
 
-        {% comment %} {% assign current_variant = product.selected_or_first_available_variant %}
-                                                                    {%- render 'product-template-variables' - %}
-                                                                    {%- render 'product-form'
-                                                                      , form_id: "product-form-{{product.id}}"
-                                                                                          , product: product
-                                                                              , current_variant: current_variant -%} {% endcomment %}
-
-
-        {%- assign current_variant = product.selected_or_first_available_variant -%}
-        <button
-          type="button"
-          {% unless current_variant.available %}
-          disabled="disabled"
-          {% endunless %}
-          onclick="event.preventDefault(); add_to_cart_grid({{current_variant.id}}, 1);"
-          class="btn btn--full">
-          {% if current_variant.available %}
-            {{ 'products.product.add_to_cart' | t }}
-          {% else %}
-            {{ 'products.product.sold_out' | t }}
-          {% endif %}
-        </button>
+      {% comment %} {% assign current_variant = product.selected_or_first_available_variant %}
+         {%- render 'product-template-variables' - %}
+        {%- render 'product-form'
+        , form_id: "product-form-{{product.id}}"
+        , product: product
+      , current_variant: current_variant -%} {% endcomment %}
+      {% comment %} {%- assign current_variant = product.selected_or_first_available_variant -%}
+                <button
+                  type="button"
+                  {% unless current_variant.available %}
+                  disabled="disabled"
+                  {% endunless %}
+                  onclick="event.preventDefault(); add_to_cart_grid({{current_variant.id}}, 1);"
+                  class="btn btn--full atc-variant-pf">
+                  {% if current_variant.available %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% else %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% endif %}
+              </button> {% endcomment %}
 
       </div>
     </a>
@@ -322,6 +322,20 @@
     {% endfor %}
   </div>
 
+  <button
+    type="button"
+    {% unless current_variant.available %}
+    disabled="disabled"
+    {% endunless %}
+    onclick="event.preventDefault(); add_to_cart_grid({{current_variant.id}}, 1);"
+    class="btn btn--full atc-variant-pf">
+    {% if current_variant.available %}
+      {{ 'products.product.add_to_cart' | t }}
+    {% else %}
+      {{ 'products.product.sold_out' | t }}
+    {% endif %}
+  </button>
+
 
   {%- if quick_shop_enable -%}
     {%- render 'quick-shop-modal'
@@ -330,8 +344,17 @@
 </div>
 
 <style>
-  #atc-button-pf {
-    margin-top: 1em;
+  button.atc-variant-pf {
+    background-color: #C110BE;
+    margin-top: 0.75em;
+    transition-property: background-color !important;
+    transition-duration: 0.3s !important;
+  }
+  button.atc-variant-pf:active {
+    background-color: #9C0C9A;
+  }
+  button.atc-variant-pf:hover {
+    background-color: #D120CE !important;
   }
 </style>
 
