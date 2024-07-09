@@ -1,0 +1,25 @@
+{% if product %}
+  {% assign variant_sku_values = product.variants | map: 'sku' %}
+  {% assign sku_values = variant_sku_values | uniq | join: ';' %}
+  {% assign ls_selected_or_first_variant = product.selected_or_first_available_variant %}
+
+  {% if product.available %}
+    {% assign ls_availability = 1 %}
+  {% else %}
+    {% assign ls_availability = 0 %}
+  {% endif %}
+
+  <div id="lipscore-rating"
+    ls-product-name="{{ product.title }}"
+    ls-brand="{{ product.vendor }}"
+    ls-sku="{{ sku_values }}"
+    ls-product-id="{{ product.id }}"
+    ls-product-url="{{ shop.url }}{{ product.url }}"
+    ls-description="{{ product.description | escape }}"
+    ls-image-url="{{ product | img_url: '1024x1024' | remove: '_1024x1024' }}"
+    ls-price="{{ ls_selected_or_first_variant.price | money_without_currency }}"
+    ls-price-currency="{{ shop.currency }}"
+    ls-availability="{{ ls_availability }}"
+    ls-category="{{ product.type }}">
+  </div>
+{% endif %}

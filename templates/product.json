@@ -1,0 +1,251 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "price": { "type": "price", "settings": {} },
+        "monk_embedded_product_page_any_czbtcq": {
+          "type": "shopify://apps/monk/blocks/embedded-product-page-any/e949adb6-87ca-4b97-8f31-0e51bf507f2d",
+          "settings": { "widget_id": "" }
+        },
+        "a0fa2fd9-4ab6-44b9-b5c0-e525068704ed": {
+          "type": "shopify://apps/klarna-on-site-messaging/blocks/app-block/b95936a9-74b6-4a95-8103-6a1b6459c25e",
+          "settings": {
+            "data_key": "credit-promotion-badge",
+            "locale_option": "geolocation",
+            "locale_fallback": "en-GB",
+            "theme": "light",
+            "topPadding": "0",
+            "bottomPadding": "0",
+            "messagePrefix": ""
+          }
+        },
+        "separator": { "type": "separator", "settings": {} },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_labels": true,
+            "picker_type": "button",
+            "color_swatches": false
+          }
+        },
+        "swan_ai_fitting_room_swan_get_fitted_HCfcXk": {
+          "type": "shopify://apps/swan-ai-fitting-room/blocks/swan-get-fitted/3ad5c515-121c-48b3-b551-3b7f6092213f",
+          "settings": { "product": "{{product}}" }
+        },
+        "sales_point": {
+          "type": "sales_point",
+          "disabled": true,
+          "settings": { "icon": "globe", "text": "Free worldwide shipping" }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 6,
+            "inventory_transfers_enable": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "surface_pickup_enable": false
+          }
+        },
+        "02a7b18e-435c-4e5f-8961-0ffa138b4983": {
+          "type": "custom",
+          "settings": {
+            "code": "{%- assign tag_alt = \"BLANK\" -%}\n                    {%- for tag in product.tags -%}\n                      {%- assign tag_prefix = tag | slice: 0, 5 -%}\n                      {%- if tag_prefix == \"_alt_\" -%}\n                        {%- assign tag_alt = tag -%}\n                        {%- break -%}\n                      {%- endif -%}\n                    {%- endfor -%}\n                    {%- unless tag_alt == \"BLANK\" -%}\n                      {%- assign vendor_handle = product.vendor | handle -%}\n                      {%- if collections[vendor_handle].products.size > 0 -%}\n                        {%- assign alt_products_total = 0 -%}\n                        {%- capture products_output -%}\n                          {%- paginate collections[vendor_handle].products by 200 -%}\n                            {%- for alt_product in collections[vendor_handle].products -%}\n                              {%- if alt_product.tags contains tag_alt -%}\n                                {%- unless alt_product.id == product.id -%}\n                                {%- assign alt_products_total = alt_products_total | plus: 1 -%}\n                                <a href=\"{{ alt_product.url }}\" title=\"{{ alt_product.title }}\"><img src=\"{{ alt_product.featured_image | img_url: '90x90', crop: 'center', format: 'pjpg' }}\" alt=\"{{ alt_product.title }}\"></a>\n                                {%- endunless -%}\n                              {%- endif -%}\n                            {%- endfor -%}\n                          {%- endpaginate -%}\n                        {%- endcapture -%}\n                      {%- endif -%}\n                    {%- endunless -%}\n                    {%- if alt_products_total > 0 -%}\n\n<h4><strong>Also Available In:</strong></h4>\n<div class=\"product-alt-colours\">\n{{ products_output }}\n</div>\n   {%- endif -%}"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": { "is_tab": false }
+        },
+        "tab": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "title": "Shipping information",
+            "content": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>",
+            "page": ""
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "disabled": true,
+          "settings": { "title": "Ask a question", "phone": false }
+        },
+        "share": { "type": "share", "disabled": true, "settings": {} }
+      },
+      "block_order": [
+        "price",
+        "monk_embedded_product_page_any_czbtcq",
+        "a0fa2fd9-4ab6-44b9-b5c0-e525068704ed",
+        "separator",
+        "variant_picker",
+        "swan_ai_fitting_room_swan_get_fitted_HCfcXk",
+        "sales_point",
+        "inventory_status",
+        "buy_buttons",
+        "02a7b18e-435c-4e5f-8961-0ffa138b4983",
+        "description",
+        "tab",
+        "contact",
+        "share"
+      ],
+      "settings": {
+        "sku_enable": false,
+        "image_position": "left",
+        "image_size": "medium",
+        "product_zoom_enable": true,
+        "thumbnail_position": "beside",
+        "thumbnail_height": "flexible",
+        "thumbnail_arrows": false,
+        "mobile_layout": "partial",
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": { "max_width": true }
+    },
+    "background-image-text": {
+      "type": "background-image-text",
+      "disabled": true,
+      "settings": {
+        "subtitle": "Impressive",
+        "title": "About your brand",
+        "text": "<p>Pair large text with a full-width image to draw attention to an important detail of your brand or product line.</p>",
+        "button_label": "",
+        "button_link": "",
+        "focal_point": "center",
+        "layout": "left",
+        "height": 550,
+        "framed": false,
+        "parallax": false,
+        "parallax_direction": "top"
+      }
+    },
+    "text-and-image": {
+      "type": "text-and-image",
+      "disabled": true,
+      "settings": {
+        "image_width": 700,
+        "subtitle": "",
+        "title": "About your brand",
+        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "align_text": "left",
+        "layout": "right",
+        "divider": false
+      }
+    },
+    "text-and-image2": {
+      "type": "text-and-image",
+      "disabled": true,
+      "settings": {
+        "image_width": 700,
+        "subtitle": "",
+        "title": "About your brand",
+        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "align_text": "left",
+        "layout": "left",
+        "divider": false
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonials-0": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "testimonials-1": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        },
+        "testimonials-2": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5-stars",
+            "testimonial": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
+            "author": "Author's name",
+            "author_info": "Los Angeles, CA"
+          }
+        }
+      },
+      "block_order": ["testimonials-0", "testimonials-1", "testimonials-2"],
+      "disabled": true,
+      "settings": {
+        "title": "Testimonials",
+        "align_text": "center",
+        "round_images": true,
+        "color_background": "#f9f9f9",
+        "color_text": "#1c1d1d"
+      }
+    },
+    "16620674532b3d7601": {
+      "type": "apps",
+      "settings": { "full_width": false, "space_around": true }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": { "recent_count": 5 }
+    },
+    "collection-return": { "type": "collection-return", "settings": {} },
+    "17108050928430221a": {
+      "type": "apps",
+      "blocks": {
+        "lipscore_reviews_lipscore_product_reviewlist_gfdawn": {
+          "type": "shopify://apps/lipscore-reviews/blocks/lipscore-product-reviewlist/e89bfb0c-cc26-450f-9297-cec873403986",
+          "settings": {
+            "use_variant_values": false,
+            "use_all_variant_skus": false
+          }
+        }
+      },
+      "block_order": ["lipscore_reviews_lipscore_product_reviewlist_gfdawn"],
+      "settings": { "full_width": false, "space_around": true }
+    }
+  },
+  "order": [
+    "main",
+    "sub",
+    "background-image-text",
+    "text-and-image",
+    "text-and-image2",
+    "testimonials",
+    "16620674532b3d7601",
+    "product-recommendations",
+    "recently-viewed",
+    "collection-return",
+    "17108050928430221a"
+  ]
+}

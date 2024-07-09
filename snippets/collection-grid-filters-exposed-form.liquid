@@ -1,0 +1,101 @@
+{% comment %}
+  - filters: Liquid 'collection.filters' or 'search.filters' object
+  - enable_color_swatches: boolean
+  - collapsed: boolean
+{% endcomment %}
+
+<div class="exposed-filter-form--fake"></div>
+<form class="filter-form exposed-filter-form ">
+  {%- for filter in filters -%}
+    {% assign filter_name = filter.label | handleize %}
+
+    {% if filter_name != 'availability' and filter_name != 'price' %}
+      <div class="exposed-filter-form-item {{ filter_name }}">
+        {%- case filter.type -%}
+          {%- when 'list' -%}
+            {% assign valuesSize = filter.values | size %}
+            {%- case filter_name -%}
+              {%- when 'gender' -%}
+                {% unless collection.handle contains 'womens'
+                  or collection.handle contains 'chic'
+                  or collection.handle contains 'girl'
+                  or collection.handle contains 'curved'
+                  or collection.handle contains 'mens'
+                  or collection.handle contains 'afterparty'
+                  or collection.handle contains 'snow-park'
+                  or collection.handle contains '-fleece'
+                  or collection.handle contains 'man'
+                %}
+                  <div class="exposed-filter-form-item__title">{{ filter.label }}:</div>
+                  <div
+                    class="{% if valuesSize > 4 %}splide slider-splide-{{ filter_name }}{% else %}splide--disabled{% endif %}"
+                    {% if valuesSize > 4 %}
+                      data-splide='{"type":"slide","rewind":false,"perPage":6,"perMove":1,"gap":10,"pagination":false,"wheel":true,"omitEnd":true,"perPage":5}'
+                    {% endif %}
+                  >
+                    <div class="splide__track">
+                      <ul class="no-bullets tag-list exposed-filter-form-item__list splide__list">
+                        {%- for filter_value in filter.values -%}
+                          {% assign tag_list_name = filter_value.label | handleize %}
+                          {% if tag_list_name == 'mens' or tag_list_name == 'womens' %}
+                            <li class="splide__slide exposed-filter-form-item__item {% if filter_value.active %}exposed-filter-form-item__item--active tag--active{% endif %} {% if filter_value.count == 0 %}hide{% endif %}">
+                              <label class="exposed-filter-form-item__label tag__checkbox-wrapper text-label">
+                                <input
+                                  type="checkbox"
+                                  class="tag__input"
+                                  name="{{ filter_value.param_name }}"
+                                  value="{{ filter_value.value }}"
+                                  {% if filter_value.active %}
+                                    checked
+                                  {% endif %}
+                                >
+                                <span class="tag__checkbox"></span>
+                                <span class="tag__text">
+                                  {{ filter_value.label | escape }}
+                                </span>
+                              </label>
+                            </li>
+                          {% endif %}
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {% endunless %}
+              {% else %}
+                <div class="exposed-filter-form-item__title">{{ filter.label }}:</div>
+                <div
+                  class="{% if valuesSize > 4 %}splide slider-splide-{{ filter_name }}{% else %}splide--disabled{% endif %}"
+                  {% if valuesSize > 4 %}
+                    data-splide='{"type":"slide","rewind":false,"perPage":6,"perMove":1,"gap":10,"pagination":false,"wheel":true,"omitEnd":true,"perPage":5}'
+                  {% endif %}
+                >
+                  <div class="splide__track">
+                    <ul class="no-bullets tag-list exposed-filter-form-item__list splide__list">
+                      {%- for filter_value in filter.values -%}
+                        <li class="splide__slide exposed-filter-form-item__item {% if filter_value.active %}exposed-filter-form-item__item--active tag--active{% endif %} {% if filter_value.count == 0 %}hide{% endif %}">
+                          <label class="exposed-filter-form-item__label tag__checkbox-wrapper text-label">
+                            <input
+                              type="checkbox"
+                              class="tag__input"
+                              name="{{ filter_value.param_name }}"
+                              value="{{ filter_value.value }}"
+                              {% if filter_value.active %}
+                                checked
+                              {% endif %}
+                            >
+                            <span class="tag__checkbox"></span>
+                            <span class="tag__text">
+                              {{ filter_value.label | escape }}
+                            </span>
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+            {%- endcase -%}
+        {%- endcase -%}
+      </div>
+    {% endif %}
+  {%- endfor -%}
+</form>

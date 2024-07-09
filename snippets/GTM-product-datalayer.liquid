@@ -1,0 +1,79 @@
+<script>
+
+    window.dataLayer = window.dataLayer || [];  // init data layer if doesn't already exist
+
+        var template = "{{template}}";
+        
+        /** DATALAYER: Product List Page (Collections, Category)
+        * Fire on all product listing pages. */
+        {% if template contains 'collection' %}
+            var ecommerce = {
+                'items': [
+                    {% for product in collection.products %}{
+                        'item_id'        : {{product.id | json}},                  
+                        'item_variant'    : {{product.selected_variant.title | json}},             
+                        'item_name'      : {{product.title | json}},
+                        'price'           : {{product.price | money_without_currency | replace: ',', '.' | json}},
+                        'item_brand'      : {{product.vendor | json}},
+                        'item_category'   : {{product.type | json}},
+                        'item_list_name'  : {{collection.title | json}},
+                        'productURL'      : '{{shop.secure_url}}{{product.url}}',
+                        'sku'             : {{product.selected_variant.sku | json}},
+                    },
+                    {% endfor %}]
+                };  
+            dataLayer.push({
+                'productList' : {{collection.title | json}},
+                'pageType'    : 'Collection',
+                'event'       : 'view_item_list',
+                ecommerce
+            });
+        {% endif %}
+            
+        /** DATALAYER: Product Page
+        * Fire on all Product View pages. */
+        {% if template contains 'product' %}  
+            var ecommerce = {
+                'items': [{
+                    'item_id'        : {{product.id | json}},  
+                    'item_variant'    : {{product.selected_variant.title | json}},             
+                    'item_name'      : {{product.title | json}},
+                    'price'           : {{product.price | money_without_currency | replace: ',', '.' | json}},
+                    'item_brand'      : {{product.vendor | json}},
+                    'item_category'   : {{product.type | json}},
+                    'item_list_name'  : {{collection.title | json}},
+                    'productURL'      : '{{product.url}}'
+                }]
+            };               
+            dataLayer.push({
+                'pageType' : 'Product',
+                'event'    : 'view_item',
+            	 ecommerce
+            	});   
+        {% endif %}
+      
+        /** DATALAYER: Cart View
+        * Fire anytime a user views their cart (non-dynamic) */               
+        {% if template contains 'cart' %}
+            var ecommerce = {
+                'currency': {{cart.currency.iso_code | json}},
+                'value': {{cart.total_price | divided_by: 100.0 | json}},
+                'items':[{% for line_item in cart.items %}{
+                    'item_id'        : {{line_item.product.id | json}},                  
+                    'item_variant'    : {{line_item.variant.title | json}},             
+                    'item_name'      : {{line_item.product.title | json}},
+                    'price'           : {{line_item.product.price | money_without_currency | replace: ',', '.' | json}},
+                    'item_brand'      : {{line_item.product.vendor | json}},
+                    'item_category'   : {{line_item.product.type | json}},
+                    'item_list_name'  : {{line_item.collection.title | json}},
+                    'quantity'        : {{line_item.quantity | json}},
+                },{% endfor %}],
+            };
+            dataLayer.push({
+                'pageType' : 'Cart',
+                'event'    : 'view_cart',
+                ecommerce
+            });
+        {% endif %} 
+
+</script>

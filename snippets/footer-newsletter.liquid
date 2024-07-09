@@ -1,0 +1,35 @@
+<div class="footer__item-padding">
+  {%- if block.settings.show_footer_title -%}
+    <p class="h4 footer__title small--hide">{{ block.settings.title }}</p>
+    <button type="button" class="h4 footer__title collapsible-trigger collapsible-trigger-btn medium-up--hide" aria-controls="Footer-{{ block.id }}">
+      {{ block.settings.title }}
+      {%- render 'collapsible-icons' -%}
+    </button>
+  {%- endif -%}
+  <div
+    {% if block.settings.show_footer_title %}
+      id="Footer-{{ block.id }}" class="collapsible-content collapsible-content--small"
+    {% endif %}>
+    <div class="collapsible-content__inner">
+      <div class="footer__collapsible{% unless block.settings.show_footer_title %} footer_collapsible--disabled{% endunless %}">
+        {%- if block.settings.text -%}
+          {{ block.settings.text }}
+        {%- endif -%}
+
+        <div class="footer__newsletter" style="margin-bottom:20px">
+            <button class="klaviyo_form_trigger">COUNT ME IN!</button>
+        </div>
+
+        {% render 'social-icons', additional_classes: 'footer__social' %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	document.querySelector('.klaviyo_form_trigger').addEventListener('click', function (){
+window._klOnsite = window._klOnsite || [];
+window._klOnsite.push(['openForm', 'REEyih']);
+	});
+</script>

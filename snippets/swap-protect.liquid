@@ -1,0 +1,43 @@
+{% # theme-check-disable %}
+
+{% comment %}
+  Implimentation Notes:
+  - Initial Implimentation - Jonny (16/04/2024)
+{% endcomment %}
+
+<script src="https://cdn.weareshift.agency/insure.js"
+    data-insure-moneyformat="{{ shop.money_format }}"
+    data-insure-producthandle="swap-protect"
+    data-insure-updateobservers="div.cart__page-col"
+    data-insure-widgetsmall-start="#CartDrawerForm .drawer__footer"
+    data-insure-widgetsmall-before=".cart__page .cart__item-row.cart__checkout-wrapper"
+    data-insure-targetlocks=".btn.cart__checkout,#CartDrawerForm button"
+    data-insure-forceinsure="true"
+    data-insure-limit="500000"
+    data-insure-display-usp="false"
+    data-insure-forcereload="false"
+    defer="defer"
+    data-insure></script>
+
+<link rel="stylesheet" href="https://cdn.weareshift.agency/insure.css">
+
+<style>
+  .lds-ring {
+    display:none;
+  }
+
+  swap-insurewidget {
+    margin-bottom:20px;
+  }
+
+  .cart__page .swap-loadingscreen {
+    background-color:#f7f7f7;
+  }
+
+  .btn.cart__checkout[disabled],
+  .btn.cart__checkout:disabled {
+    opacity:0.5;
+  }
+</style>
+
+{% # theme-check-enable %}
